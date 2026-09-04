@@ -1,0 +1,622 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<title>MedAgenda — Apresentação Comercial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --teal:#12857f;
+    --teal-dark:#0c5f5b;
+    --teal-soft:#e2f4f2;
+    --sky:#2f6fb5;
+    --sky-soft:#e6eefa;
+    --ink:#16242c;
+    --ink-2:#3d5561;
+    --muted:#6b8290;
+    --line:#dde6ea;
+    --paper:#ffffff;
+    --amber:#c47f16;
+    --amber-soft:#fbf0dc;
+    --green:#1f8a5c;
+    --green-soft:#e2f3ea;
+    --red:#c0392b;
+    --red-soft:#fdeceb;
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0;
+     -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+
+  @page{ size:297mm 210mm; margin:0; }
+
+  html,body{ background:#eef3f5; }
+  body{
+    font-family:"Inter","Segoe UI",system-ui,sans-serif;
+    color:var(--ink);
+    font-size:10.5pt;
+    line-height:1.5;
+  }
+
+  h1,h2,h3,.display{ font-family:"Plus Jakarta Sans","Segoe UI",system-ui,sans-serif;
+                     letter-spacing:-.015em; }
+
+  .slide{
+    position:relative;
+    width:297mm; height:210mm;
+    padding:16mm 18mm;
+    background:var(--paper);
+    overflow:hidden;
+    page-break-after:always;
+    display:flex; flex-direction:column;
+  }
+  .slide:last-child{ page-break-after:auto; }
+
+  .dark{ background:linear-gradient(160deg,#12494c 0%,#0a2b30 100%); color:#eaf3f4; }
+  .dark h1,.dark h2{ color:#fff; }
+  .dark .lead{ color:#a9c6c9; }
+
+  /* ---------------------------------------------------------- elementos */
+
+  .pattern{ position:absolute; inset:0; color:rgba(255,255,255,.07); }
+  .glow{ position:absolute; border-radius:50%; filter:blur(70px); }
+
+  .brand{ display:flex; align-items:center; gap:9px; }
+  .mark{
+    width:34px; height:34px; border-radius:9px; background:var(--teal);
+    display:flex; align-items:center; justify-content:center; flex:none;
+  }
+  .mark svg{ width:21px; height:21px; }
+  .brand-name{ font-family:"Plus Jakarta Sans",sans-serif; font-weight:700;
+                font-size:15pt; letter-spacing:-.02em; }
+
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:7px; align-self:flex-start;
+    font-size:8pt; font-weight:600; text-transform:uppercase;
+    letter-spacing:.14em; color:var(--teal);
+    background:var(--teal-soft); padding:5px 11px; border-radius:99px;
+  }
+  .dark .eyebrow{ color:#8fd8d2; background:rgba(255,255,255,.09); }
+
+  .slide-head{ margin-bottom:8mm; }
+  .slide-head h2{ font-size:23pt; font-weight:700; line-height:1.15; }
+  .slide-head .lead{ margin-top:3mm; font-size:11pt; color:var(--ink-2);
+                     max-width:195mm; }
+
+  .rule{ height:3px; width:52px; border-radius:2px;
+         background:linear-gradient(90deg,var(--teal),var(--sky)); margin-top:5mm; }
+
+  .body{ flex:1; display:flex; flex-direction:column; justify-content:center; }
+
+  .foot{
+    position:absolute; left:18mm; right:18mm; bottom:9mm;
+    display:flex; justify-content:space-between; align-items:center;
+    font-size:7.5pt; color:var(--muted);
+    border-top:1px solid var(--line); padding-top:3mm;
+  }
+  .dark .foot{ color:#7fa0a4; border-color:rgba(255,255,255,.14); }
+
+  /* -------------------------------------------------------------- grids */
+
+  .grid{ display:grid; gap:6mm; }
+  .g2{ grid-template-columns:1fr 1fr; }
+  .g3{ grid-template-columns:repeat(3,1fr); }
+  .g4{ grid-template-columns:repeat(4,1fr); }
+
+  .card{
+    border:1px solid var(--line); border-radius:12px; padding:6.5mm;
+    background:#fff;
+  }
+  .card .ico{
+    width:32px; height:32px; border-radius:9px; background:var(--teal-soft);
+    color:var(--teal); display:flex; align-items:center; justify-content:center;
+    margin-bottom:4mm;
+  }
+  .card .ico svg{ width:18px; height:18px; }
+  .card h3{ font-size:11.5pt; font-weight:700; margin-bottom:2.5mm; }
+  .card p{ font-size:9.5pt; color:var(--ink-2); line-height:1.55; }
+
+  .card.sky .ico{ background:var(--sky-soft); color:var(--sky); }
+  .card.amber .ico{ background:var(--amber-soft); color:var(--amber); }
+  .card.green .ico{ background:var(--green-soft); color:var(--green); }
+  .card.red .ico{ background:var(--red-soft); color:var(--red); }
+
+  /* problema */
+  .pain{ display:flex; gap:5mm; align-items:flex-start;
+         padding:5.5mm 6mm; border-radius:11px; background:#fbfcfd;
+         border:1px solid var(--line); }
+  .pain .x{
+    width:26px; height:26px; border-radius:50%; flex:none;
+    background:var(--red-soft); color:var(--red); display:flex;
+    align-items:center; justify-content:center; font-size:11pt; font-weight:700;
+    font-family:"Plus Jakarta Sans",sans-serif;
+  }
+  .pain h3{ font-size:11pt; font-weight:700; margin-bottom:1.5mm; }
+  .pain p{ font-size:9.5pt; color:var(--ink-2); }
+
+  /* passos */
+  .steps{ display:grid; grid-template-columns:repeat(5,1fr); gap:4mm; }
+  .step{ position:relative; padding-top:13mm; }
+  .step .n{
+    position:absolute; top:0; left:0;
+    width:9mm; height:9mm; border-radius:50%;
+    background:var(--teal); color:#fff;
+    font-family:"Plus Jakarta Sans",sans-serif; font-weight:700; font-size:10pt;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .step .bar{ position:absolute; top:4.5mm; left:9mm; right:-4mm; height:2px;
+              background:var(--line); }
+  .step:last-child .bar{ display:none; }
+  .step h3{ font-size:10.5pt; font-weight:700; margin-bottom:2mm; }
+  .step p{ font-size:9pt; color:var(--ink-2); line-height:1.5; }
+
+  /* telas */
+  .screen{ display:flex; gap:6mm; align-items:flex-start; }
+  .screen .tag{
+    font-family:"Plus Jakarta Sans",sans-serif; font-weight:700;
+    font-size:8.5pt; color:var(--teal); background:var(--teal-soft);
+    padding:3px 10px; border-radius:99px; white-space:nowrap; flex:none;
+    margin-top:1mm; width:38mm; text-align:center;
+  }
+  .screen h3{ font-size:11pt; font-weight:700; margin-bottom:1.5mm; }
+  .screen p{ font-size:9.5pt; color:var(--ink-2); }
+
+  /* tabelas */
+  table{ width:100%; border-collapse:collapse; font-size:10pt; }
+  th,td{ padding:4mm 5mm; text-align:left; border-bottom:1px solid var(--line); }
+  th{ font-size:8pt; text-transform:uppercase; letter-spacing:.1em;
+      color:var(--muted); font-weight:600; }
+  td.fill{ color:var(--muted); font-style:italic; }
+  tr:last-child td{ border-bottom:0; }
+  .total-row td{ background:var(--teal-soft); font-weight:700; color:var(--teal-dark); }
+
+  .perm td, .perm th{ text-align:center; }
+  .perm td:first-child, .perm th:first-child{ text-align:left; }
+  .perm td, .perm th{ padding:3.4mm 4mm; }
+  .yes{ color:var(--green); font-weight:700; }
+  .no{ color:var(--muted); }
+
+  .note{
+    margin-top:6mm; padding:5mm 6mm; border-left:3px solid var(--teal);
+    background:#f6fafa; font-size:9.5pt; color:var(--ink-2); border-radius:0 8px 8px 0;
+  }
+
+  /* listas */
+  .checks{ display:grid; gap:3.5mm; }
+  .check{ display:flex; gap:4mm; align-items:flex-start; font-size:10pt; }
+  .check .tick{ width:19px; height:19px; border-radius:50%; flex:none;
+    background:var(--green-soft); color:var(--green);
+    display:flex; align-items:center; justify-content:center; margin-top:1px; }
+  .check .tick svg{ width:11px; height:11px; }
+  .check b{ font-weight:600; }
+  .check span{ color:var(--ink-2); }
+</style>
+</head>
+<body>
+
+<!-- =============================================== 1. CAPA -->
+<section class="slide dark">
+  <svg class="pattern"><defs>
+    <pattern id="cx1" width="30" height="30" patternUnits="userSpaceOnUse" patternTransform="rotate(12)">
+      <path d="M15 10.5v9M10.5 15h9" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+    </pattern></defs><rect width="100%" height="100%" fill="url(#cx1)"/></svg>
+  <div class="glow" style="width:200mm;height:120mm;right:-60mm;top:-50mm;background:rgba(18,133,127,.45);"></div>
+  <div class="glow" style="width:120mm;height:90mm;left:-40mm;bottom:-40mm;background:rgba(47,111,181,.3);"></div>
+
+  <div class="brand" style="position:relative;">
+    <span class="mark">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 12.5h3.2l1.6-3.6 2.4 7.2 2-5.2 1.3 2.4h2.1"/><path d="M19.2 8.4v4.2M17.1 10.5h4.2"/>
+      </svg>
+    </span>
+    <span class="brand-name" style="color:#fff;">MedAgenda</span>
+  </div>
+
+  <div class="body" style="position:relative;">
+    <span class="eyebrow">Software de gestão para clínicas</span>
+    <h1 style="font-size:40pt;font-weight:800;line-height:1.08;margin-top:7mm;max-width:210mm;">
+      A agenda da clínica inteira<br/>em um lugar só.
+    </h1>
+    <p class="lead" style="font-size:13pt;margin-top:6mm;max-width:172mm;">
+      Vários médicos, uma recepção. Pacientes, agenda e prontuário organizados,
+      com confirmação por WhatsApp a um clique e controle de faltas.
+    </p>
+
+    <svg viewBox="0 0 640 64" preserveAspectRatio="none"
+         style="width:150mm;height:14mm;margin-top:12mm;color:rgba(120,220,210,.55);">
+      <path d="M0 32h96l10-16 12 34 11-24 9 12h84l12-20 13 38 12-26 10 8h92l11-18 13 34 11-22 10 8h94l12-14 12 26 11-14h97"
+            fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </div>
+
+  <div class="foot"><span>Apresentação comercial</span><span>MedAgenda</span></div>
+</section>
+
+<!-- =============================================== 2. PROBLEMA -->
+<section class="slide">
+  <div class="slide-head">
+    <span class="eyebrow">O ponto de partida</span>
+    <h2 style="margin-top:5mm;">O que trava a recepção de uma clínica</h2>
+    <p class="lead">Nenhum desses problemas é de medicina. São todos de organização —
+      e é exatamente por isso que dá para resolver.</p>
+    <div class="rule"></div>
+  </div>
+
+  <div class="body">
+    <div class="grid g2">
+      <div class="pain"><span class="x">1</span><div>
+        <h3>Uma agenda por médico</h3>
+        <p>Cada profissional com seu caderno, sua planilha ou seu aplicativo.
+           Ninguém enxerga o dia da clínica inteira de uma vez.</p></div></div>
+
+      <div class="pain"><span class="x">2</span><div>
+        <h3>O histórico está espalhado</h3>
+        <p>Papel na pasta, anotação no caderno, exame no WhatsApp. Na hora da
+           consulta, o médico reconstrói o caso de memória.</p></div></div>
+
+      <div class="pain"><span class="x">3</span><div>
+        <h3>Confirmar consome a manhã</h3>
+        <p>Procurar o telefone, digitar o número, escrever a mensagem, repetir
+           trinta vezes. E ainda assim alguém fica sem aviso.</p></div></div>
+
+      <div class="pain"><span class="x">4</span><div>
+        <h3>Ninguém sabe quem falta</h3>
+        <p>A falta acontece, o horário se perde e não fica registro. No mês
+           seguinte, o mesmo paciente ganha o mesmo horário nobre.</p></div></div>
+    </div>
+  </div>
+
+  <div class="foot"><span>O problema</span><span>MedAgenda · 02</span></div>
+</section>
+
+<!-- =============================================== 3. SOLUÇÃO -->
+<section class="slide">
+  <div class="slide-head">
+    <span class="eyebrow">A proposta</span>
+    <h2 style="margin-top:5mm;">Quatro coisas bem feitas, no lugar de dez pela metade</h2>
+    <p class="lead">O MedAgenda é um sistema web: abre no navegador do computador
+      da recepção, do tablet ou do celular. Sem instalação, sem servidor na clínica.</p>
+    <div class="rule"></div>
+  </div>
+
+  <div class="body">
+    <div class="grid g4" style="gap:5mm;">
+      <div class="card"><span class="ico">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18M9 16l2 2 4-4"/></svg>
+        </span>
+        <h3>Agenda por médico</h3>
+        <p>Calendário do mês com todos os profissionais, ou filtrado em um só.
+           Cada consulta guarda quem vai atender.</p></div>
+
+      <div class="card sky"><span class="ico">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.8 2.3A.3.3 0 1 0 5.4 2.3a.3.3 0 1 0-.6 0M8 15a6 6 0 0 0 12 0v-3"/><path d="M11 3H9.5a.5.5 0 0 0-.5.5v5a.5.5 0 0 0 .5.5H11M8 3H6.5a.5.5 0 0 0-.5.5v5a.5.5 0 0 0 .5.5H8"/><circle cx="20" cy="10" r="2"/></svg>
+        </span>
+        <h3>Prontuário por paciente</h3>
+        <p>Histórico em linha do tempo, com queixa, evolução, diagnóstico,
+           conduta — e qual médico atendeu.</p></div>
+
+      <div class="card green"><span class="ico">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.5 8.5 0 0 1-3.8-.9L3 21l1.9-5.1A8.4 8.4 0 0 1 4 11.5a8.5 8.5 0 0 1 8.5-8.5 8.4 8.4 0 0 1 8.5 8.5z"/></svg>
+        </span>
+        <h3>Confirmação por WhatsApp</h3>
+        <p>Um clique abre a conversa com o número salvo e a mensagem pronta,
+           já com o médico, a data e a hora.</p></div>
+
+      <div class="card red"><span class="ico">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="m17 8 5 5M22 8l-5 5"/></svg>
+        </span>
+        <h3>Controle de faltas</h3>
+        <p>Quem não apareceu fica registrado, com a data. A recepção vê o
+           histórico antes de dar o próximo horário.</p></div>
+    </div>
+  </div>
+
+  <div class="foot"><span>A solução</span><span>MedAgenda · 03</span></div>
+</section>
+
+<!-- =============================================== 4. VANTAGENS -->
+<section class="slide">
+  <div class="slide-head">
+    <span class="eyebrow">Vantagens</span>
+    <h2 style="margin-top:5mm;">O que a clínica ganha na prática</h2>
+    <div class="rule"></div>
+  </div>
+
+  <div class="body">
+    <div class="grid g3" style="gap:5mm;">
+      <div class="card"><span class="ico">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.1V12a10 10 0 1 1-5.9-9.1"/><path d="m9 11 3 3L22 4"/></svg></span>
+        <h3>Menos faltas</h3>
+        <p>Confirmar deixa de depender de lembrar. O painel mostra quem ainda não
+           respondeu e a mensagem sai em um clique.</p></div>
+
+      <div class="card red"><span class="ico">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m7 15 4-4 3 3 5-6"/></svg></span>
+        <h3>A falta vira informação</h3>
+        <p>Cada ausência fica registrada com a data. Na hora de reagendar, a
+           recepção vê quantas vezes aquele paciente já faltou.</p></div>
+
+      <div class="card sky"><span class="ico">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+        <h3>Vários médicos, uma agenda</h3>
+        <p>A recepção enxerga o dia da clínica inteira e, quando precisa, filtra
+           por profissional. Sem trocar de sistema.</p></div>
+
+      <div class="card green"><span class="ico">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.7 8.9a1 1 0 0 1-.6 0C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.2-2.7a1 1 0 0 1 1.6 0C14.5 3.8 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg></span>
+        <h3>Cada conta no seu nível</h3>
+        <p>A recepção agenda e cadastra; só o administrador mexe no cadastro de
+           médicos e exclui paciente. Sem apagão por engano.</p></div>
+
+      <div class="card"><span class="ico">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></span>
+        <h3>Histórico em segundos</h3>
+        <p>Busca por nome, telefone ou e-mail. A ficha abre com o histórico em
+           ordem, da consulta mais recente para trás.</p></div>
+
+      <div class="card amber"><span class="ico">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg></span>
+        <h3>Sem instalação</h3>
+        <p>É web. Nada de servidor na clínica ou licença por máquina. Abre no
+           computador da recepção e no celular do médico.</p></div>
+    </div>
+  </div>
+
+  <div class="foot"><span>Vantagens</span><span>MedAgenda · 04</span></div>
+</section>
+
+<!-- =============================================== 5. COMO FUNCIONA -->
+<section class="slide">
+  <div class="slide-head">
+    <span class="eyebrow">Como funciona</span>
+    <h2 style="margin-top:5mm;">Do cadastro ao registro do atendimento</h2>
+    <p class="lead">Cinco passos, todos na mesma tela. Nenhum deles exige treinamento.</p>
+    <div class="rule"></div>
+  </div>
+
+  <div class="body">
+    <div class="steps">
+      <div class="step"><span class="n">1</span><span class="bar"></span>
+        <h3>Cadastra o paciente</h3>
+        <p>Nome, nascimento, telefone com DDD e observações clínicas como
+           alergias e uso contínuo.</p></div>
+
+      <div class="step"><span class="n">2</span><span class="bar"></span>
+        <h3>Marca com o médico</h3>
+        <p>Escolhe o profissional, a data, o horário e o motivo. Entra na agenda
+           como <b>aguardando confirmação</b>.</p></div>
+
+      <div class="step"><span class="n">3</span><span class="bar"></span>
+        <h3>Confirma pelo WhatsApp</h3>
+        <p>Um clique abre a conversa com a mensagem pronta. O envio fica
+           registrado no agendamento.</p></div>
+
+      <div class="step"><span class="n">4</span><span class="bar"></span>
+        <h3>O sistema avisa no dia</h3>
+        <p>O painel inicial abre com as consultas do dia, o médico de cada uma e
+           quem ainda não confirmou.</p></div>
+
+      <div class="step"><span class="n">5</span>
+        <h3>Registra — ou marca a falta</h3>
+        <p>O atendimento vai para o histórico do paciente. Se ele não apareceu,
+           um botão marca a falta.</p></div>
+    </div>
+
+    <div class="note" style="margin-top:12mm;">
+      <b>Por que isso importa:</b> confirmação, atendimento e falta acontecem
+      dentro do mesmo fluxo. Não existe “passar a limpo depois” — e é justamente
+      o “depois” que nunca chega.
+    </div>
+  </div>
+
+  <div class="foot"><span>Como funciona</span><span>MedAgenda · 05</span></div>
+</section>
+
+<!-- =============================================== 6. TELAS -->
+<section class="slide">
+  <div class="slide-head">
+    <span class="eyebrow">O sistema</span>
+    <h2 style="margin-top:5mm;">Cinco telas, nada além do necessário</h2>
+    <div class="rule"></div>
+  </div>
+
+  <div class="body">
+    <div class="grid" style="gap:5.5mm;">
+      <div class="screen"><span class="tag">Painel inicial</span><div>
+        <h3>O dia começa aqui</h3>
+        <p>Consultas de hoje em destaque, com horário, paciente, telefone, médico
+           e especialidade. Ao lado de cada uma: enviar WhatsApp, marcar como
+           confirmada, registrar a consulta ou marcar falta. Abaixo, os
+           indicadores da clínica.</p></div></div>
+
+      <div class="screen"><span class="tag">Pacientes</span><div>
+        <h3>Todo mundo em uma lista só</h3>
+        <p>Busca por nome, telefone ou e-mail. Cada linha mostra idade, contato,
+           consultas registradas, agendadas — e <b>quantas faltas</b>, com a data
+           da última.</p></div></div>
+
+      <div class="screen"><span class="tag">Ficha do paciente</span><div>
+        <h3>O prontuário completo</h3>
+        <p>Dados, observações clínicas, próxima consulta com o botão de
+           confirmação e um bloco com o histórico de faltas. O prontuário aparece
+           como linha do tempo: cada atendimento com queixa, evolução, hipótese
+           diagnóstica, conduta e o médico responsável.</p></div></div>
+
+      <div class="screen"><span class="tag">Agenda</span><div>
+        <h3>O mês inteiro de relance</h3>
+        <p>Calendário com marcadores coloridos por status — aguardando,
+           confirmada, realizada, faltou. Filtro por médico e, ao clicar no dia,
+           o painel lateral com as ações à mão.</p></div></div>
+
+      <div class="screen"><span class="tag">Médicos e Equipe</span><div>
+        <h3>Quem atende e quem acessa</h3>
+        <p>Cadastro dos médicos da clínica com registro do conselho e
+           especialidade, e a lista de contas com acesso ao sistema, cada uma com
+           seu nível de permissão.</p></div></div>
+    </div>
+  </div>
+
+  <div class="foot"><span>O sistema</span><span>MedAgenda · 06</span></div>
+</section>
+
+<!-- =============================================== 7. FALTAS -->
+<section class="slide">
+  <div class="slide-head">
+    <span class="eyebrow">O que mais dói no caixa</span>
+    <h2 style="margin-top:5mm;">A falta deixa de ser invisível</h2>
+    <p class="lead">Cancelar com antecedência devolve o horário para a agenda.
+      Faltar não devolve nada — e é essa diferença que o sistema passa a registrar.</p>
+    <div class="rule"></div>
+  </div>
+
+  <div class="body">
+    <div class="grid g2" style="gap:10mm;align-items:start;">
+      <div>
+        <table>
+          <tr><th style="width:64%">Faça a conta com os números da sua clínica</th><th>Seu número</th></tr>
+          <tr><td>Consultas agendadas por semana</td><td class="fill">exemplo: 60</td></tr>
+          <tr><td>Quantas viram falta sem aviso</td><td class="fill">exemplo: 6</td></tr>
+          <tr><td>Valor médio da consulta</td><td class="fill">exemplo: R$ 250</td></tr>
+          <tr class="total-row"><td>Receita que evapora por mês</td><td>faltas × valor × 4</td></tr>
+        </table>
+        <div class="note">
+          No exemplo, seis faltas por semana a R$ 250 somam <b>R$ 6.000 por mês</b>
+          em horários pagos que não aconteceram. Não usamos número de pesquisa
+          aqui: cada clínica sabe a própria realidade.
+        </div>
+      </div>
+
+      <div class="checks" style="gap:5mm;">
+        <div class="check"><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4L19 7"/></svg></span>
+          <span><b>Um botão, no dia da consulta.</b> Se o paciente não apareceu, a
+          recepção marca a falta em um clique — sem formulário, sem anotação
+          paralela.</span></div>
+
+        <div class="check"><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4L19 7"/></svg></span>
+          <span><b>O histórico fica com o paciente.</b> A ficha mostra o total de
+          faltas e a data de cada uma, com o horário e o médico que ficou
+          esperando.</span></div>
+
+        <div class="check"><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4L19 7"/></svg></span>
+          <span><b>Visível antes de reagendar.</b> Na lista de pacientes, a
+          contagem de faltas aparece junto do nome — a informação chega na hora
+          da decisão, não depois.</span></div>
+
+        <div class="check"><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4L19 7"/></svg></span>
+          <span><b>Falta e cancelamento não se misturam.</b> São status
+          diferentes, com cores diferentes no calendário. Quem cancelou com
+          antecedência não vira devedor.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot"><span>Controle de faltas</span><span>MedAgenda · 07</span></div>
+</section>
+
+<!-- =============================================== 8. SEGURANÇA E ACESSO -->
+<section class="slide">
+  <div class="slide-head">
+    <span class="eyebrow">Segurança e controle de acesso</span>
+    <h2 style="margin-top:5mm;">Nem todo mundo precisa poder tudo</h2>
+    <p class="lead">Dado de paciente é dado sensível. A arquitetura foi montada
+      partindo disso, não como remendo.</p>
+    <div class="rule"></div>
+  </div>
+
+  <div class="body">
+    <div class="grid g2" style="gap:10mm;align-items:start;">
+      <div>
+        <table class="perm">
+          <tr>
+            <th style="width:54%">Cada conta no seu nível</th>
+            <th>Admin</th><th>Recepção</th>
+          </tr>
+          <tr><td>Agendar, confirmar, registrar consulta</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+          <tr><td>Cadastrar e editar pacientes</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+          <tr><td>Marcar falta</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+          <tr><td>Cadastrar e excluir médicos</td><td class="yes">✓</td><td class="no">—</td></tr>
+          <tr><td>Excluir pacientes</td><td class="yes">✓</td><td class="no">—</td></tr>
+          <tr><td>Gerenciar as contas de acesso</td><td class="yes">✓</td><td class="no">—</td></tr>
+        </table>
+        <div class="note">
+          A regra vale no banco de dados, não só na tela. Esconder o botão é
+          cortesia: quem tentar por fora recebe a mesma recusa.
+        </div>
+      </div>
+
+      <div class="checks">
+        <div class="check"><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4L19 7"/></svg></span>
+          <span><b>Acesso só para contas da clínica.</b> Entrada por e-mail e
+          senha, com confirmação de e-mail. Não existe área pública com dado de
+          paciente.</span></div>
+
+        <div class="check"><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4L19 7"/></svg></span>
+          <span><b>Isolamento entre clínicas.</b> Cada consulta ao banco é
+          filtrada pela clínica da conta autenticada. Mesmo que a tela falhasse,
+          o banco recusaria devolver dado de outra.</span></div>
+
+        <div class="check"><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4L19 7"/></svg></span>
+          <span><b>Infraestrutura gerenciada.</b> Banco PostgreSQL em nuvem, com
+          tráfego criptografado e senhas guardadas com hash — nunca em texto
+          legível.</span></div>
+
+        <div class="check"><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4L19 7"/></svg></span>
+          <span><b>Base técnica para a LGPD.</b> Controle de acesso por
+          titularidade e por papel. A adequação formal envolve também políticas e
+          contratos da clínica.</span></div>
+
+        <div class="check"><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4L19 7"/></svg></span>
+          <span><b>Nada sai por engano.</b> A mensagem de WhatsApp é sempre
+          revisada antes do envio, com o número, o médico e a data à vista.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot"><span>Segurança</span><span>MedAgenda · 08</span></div>
+</section>
+
+<!-- =============================================== 9. FECHAMENTO -->
+<section class="slide dark">
+  <svg class="pattern"><defs>
+    <pattern id="cx2" width="30" height="30" patternUnits="userSpaceOnUse" patternTransform="rotate(12)">
+      <path d="M15 10.5v9M10.5 15h9" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+    </pattern></defs><rect width="100%" height="100%" fill="url(#cx2)"/></svg>
+  <div class="glow" style="width:180mm;height:110mm;left:-50mm;top:-40mm;background:rgba(18,133,127,.4);"></div>
+
+  <div class="brand" style="position:relative;">
+    <span class="mark">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 12.5h3.2l1.6-3.6 2.4 7.2 2-5.2 1.3 2.4h2.1"/><path d="M19.2 8.4v4.2M17.1 10.5h4.2"/>
+      </svg>
+    </span>
+    <span class="brand-name" style="color:#fff;">MedAgenda</span>
+  </div>
+
+  <div class="body" style="position:relative;">
+    <h2 style="font-size:32pt;font-weight:800;line-height:1.12;max-width:200mm;">
+      Vamos ver funcionando<br/>com a agenda da sua clínica?
+    </h2>
+    <p class="lead" style="font-size:12pt;margin-top:6mm;max-width:165mm;">
+      Em uma demonstração de vinte minutos dá para cadastrar os médicos, montar a
+      agenda da semana e disparar a primeira confirmação.
+    </p>
+
+    <div style="display:flex;gap:8mm;margin-top:12mm;">
+      <div style="border:1px solid rgba(255,255,255,.18);border-radius:11px;padding:6mm 8mm;background:rgba(255,255,255,.05);min-width:92mm;">
+        <p style="font-size:8pt;text-transform:uppercase;letter-spacing:.14em;color:#8fd8d2;font-weight:600;">Contato</p>
+        <p style="font-size:12.5pt;margin-top:2.5mm;color:#fff;font-weight:600;">Samuel Isaac de Melo Magalhães</p>
+        <p style="font-size:11.5pt;margin-top:1.5mm;color:#a9c6c9;">(81) 99827-2950</p>
+      </div>
+      <div style="border:1px solid rgba(255,255,255,.18);border-radius:11px;padding:6mm 8mm;background:rgba(255,255,255,.05);min-width:78mm;">
+        <p style="font-size:8pt;text-transform:uppercase;letter-spacing:.14em;color:#8fd8d2;font-weight:600;">E-mail</p>
+        <p style="font-size:12.5pt;margin-top:2.5mm;color:#fff;font-weight:600;">isaac201485@gmail.com</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot"><span>Obrigado</span><span>MedAgenda · 09</span></div>
+</section>
+
+</body>
+</html>

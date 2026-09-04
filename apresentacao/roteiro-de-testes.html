@@ -1,0 +1,412 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<title>MedAgenda — Roteiro de Testes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --teal:#12857f; --teal-soft:#e2f4f2; --teal-dark:#0c5f5b;
+    --ink:#16242c; --ink-2:#3d5561; --muted:#6b8290; --line:#dde6ea;
+    --red:#c0392b; --red-soft:#fdeceb;
+    --amber:#c47f16; --amber-soft:#fbf0dc;
+    --green:#1f8a5c; --green-soft:#e2f3ea;
+  }
+  *{ box-sizing:border-box; margin:0; padding:0;
+     -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  @page{ size:210mm 297mm; margin:14mm 0 16mm; }
+
+  body{ font-family:"Inter","Segoe UI",system-ui,sans-serif; color:var(--ink);
+        font-size:9.5pt; line-height:1.5; }
+  h1,h2,h3{ font-family:"Plus Jakarta Sans",sans-serif; letter-spacing:-.015em; }
+
+  .page{ width:210mm; padding:0 16mm; }
+
+  /* capa ---------------------------------------------------------- */
+  .capa{ background:linear-gradient(160deg,#12494c 0%,#0a2b30 100%);
+         color:#eaf3f4; padding:26mm 16mm; margin:-14mm 0 8mm; position:relative;
+         overflow:hidden; }
+  .capa h1{ font-size:26pt; font-weight:800; line-height:1.1; margin-top:5mm; }
+  .capa p{ color:#a9c6c9; font-size:11pt; margin-top:3mm; max-width:150mm; }
+  .marca{ display:flex; align-items:center; gap:8px; }
+  .marca span{ font-family:"Plus Jakarta Sans",sans-serif; font-weight:700;
+               font-size:13pt; color:#fff; }
+  .quadrado{ width:30px; height:30px; border-radius:8px; background:var(--teal);
+             display:flex; align-items:center; justify-content:center; }
+
+  h2{ font-size:14pt; font-weight:700; margin:9mm 0 1.5mm;
+      padding-bottom:2mm; border-bottom:2px solid var(--teal); }
+  h2:first-of-type{ margin-top:0; }
+  .intro-secao{ font-size:9pt; color:var(--ink-2); margin-bottom:4mm; }
+
+  .teste{ border:1px solid var(--line); border-radius:9px; padding:4mm 5mm;
+          margin-bottom:3.5mm; break-inside:avoid; }
+  .cab{ display:flex; align-items:baseline; gap:3mm; margin-bottom:2mm; }
+  .num{ font-family:"Plus Jakarta Sans",sans-serif; font-weight:700;
+        font-size:8.5pt; color:#fff; background:var(--teal);
+        border-radius:5px; padding:1.5px 7px; flex:none; }
+  .titulo{ font-family:"Plus Jakarta Sans",sans-serif; font-weight:700;
+           font-size:10.5pt; flex:1; }
+  .etiqueta{ font-size:7pt; font-weight:600; text-transform:uppercase;
+             letter-spacing:.1em; padding:2px 7px; border-radius:99px; flex:none; }
+  .critico{ background:var(--red-soft); color:var(--red); }
+  .importante{ background:var(--amber-soft); color:var(--amber); }
+  .normal{ background:var(--teal-soft); color:var(--teal-dark); }
+
+  .passos{ margin:0 0 2.5mm 4.5mm; padding:0; }
+  .passos li{ font-size:9pt; color:var(--ink-2); margin-bottom:1mm; }
+
+  .esperado{ display:flex; gap:3mm; background:var(--green-soft);
+             border-radius:6px; padding:2.5mm 3.5mm; font-size:9pt; }
+  .esperado b{ color:var(--green); flex:none; }
+
+  .caixa-atencao{ border-left:3px solid var(--amber); background:#fffaf0;
+                  padding:3.5mm 4.5mm; border-radius:0 7px 7px 0;
+                  font-size:9pt; color:var(--ink-2); margin:4mm 0; }
+
+  table{ width:100%; border-collapse:collapse; font-size:9pt; margin-top:2mm; }
+  th,td{ padding:2.5mm 3mm; text-align:left; border-bottom:1px solid var(--line); }
+  th{ font-size:7.5pt; text-transform:uppercase; letter-spacing:.08em;
+      color:var(--muted); font-weight:600; }
+  .check{ width:12mm; text-align:center; }
+  .quadradinho{ display:inline-block; width:4mm; height:4mm;
+                border:1.4px solid var(--muted); border-radius:2px; }
+
+  .rodape{ margin-top:8mm; padding-top:3mm; border-top:1px solid var(--line);
+           font-size:7.5pt; color:var(--muted); display:flex;
+           justify-content:space-between; }
+</style>
+</head>
+<body>
+
+<div class="capa">
+  <div class="marca">
+    <span class="quadrado">
+      <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 12.5h3.2l1.6-3.6 2.4 7.2 2-5.2 1.3 2.4h2.1"/><path d="M19.2 8.4v4.2M17.1 10.5h4.2"/>
+      </svg>
+    </span>
+    <span>MedAgenda</span>
+  </div>
+  <h1>Roteiro de testes</h1>
+  <p>O que conferir depois de aplicar a migração 0006. Os testes marcados como
+     <b style="color:#f5a6a0;">críticos</b> são os que, se falharem, deixam dado
+     inconsistente no banco — comece por eles.</p>
+</div>
+
+<div class="page">
+
+<div class="caixa-atencao">
+  <b>Antes de tudo:</b> rode <b>supabase/migrations/0006_regras.sql</b> no SQL
+  Editor do Supabase. Se ela acusar “já foi aplicada”, ignore e siga. Se der erro
+  em qualquer outro ponto, nada é aplicado — a migração é uma transação só.
+  Depois, reinicie <span style="font-family:monospace;">npm run dev</span>.
+</div>
+
+<h2>1. Acesso e contas</h2>
+<p class="intro-secao">Se algo aqui falhar, o resto não roda.</p>
+
+<div class="teste">
+  <div class="cab"><span class="num">1.1</span><span class="titulo">Entrar como dono da plataforma</span><span class="etiqueta normal">básico</span></div>
+  <ol class="passos">
+    <li>Entre com <b>isaac201485@gmail.com</b>.</li>
+    <li>Repare no menu da esquerda e no rodapé dele.</li>
+  </ol>
+  <div class="esperado"><b>Esperado:</b><span>O item <b>Administração</b> aparece no menu, e o relógio de Brasília está acima do cartão da conta, avançando de segundo em segundo.</span></div>
+</div>
+
+<div class="teste">
+  <div class="cab"><span class="num">1.2</span><span class="titulo">A tela de login não oferece cadastrar clínica</span><span class="etiqueta importante">importante</span></div>
+  <ol class="passos">
+    <li>Saia do sistema e olhe o rodapé do formulário de login.</li>
+    <li>Clique em <b>Tenho um convite</b>.</li>
+  </ol>
+  <div class="esperado"><b>Esperado:</b><span>Só existe “Tenho um convite”. A tela de cadastro pede apenas nome, e-mail e senha — sem nome de clínica e sem CNPJ.</span></div>
+</div>
+
+<div class="teste">
+  <div class="cab"><span class="num">1.3</span><span class="titulo">Cadastro sem convite não entra em clínica nenhuma</span><span class="etiqueta critico">crítico</span></div>
+  <ol class="passos">
+    <li>Em <b>/cadastro</b>, crie uma conta com um e-mail qualquer que não tenha convite.</li>
+    <li>Confirme o e-mail (ou desligue a confirmação no painel do Supabase) e entre.</li>
+  </ol>
+  <div class="esperado"><b>Esperado:</b><span>Aparece a tela <b>“Conta sem clínica”</b>. Nenhum dado de paciente é visível.</span></div>
+</div>
+
+<h2>2. Administração de clínicas</h2>
+
+<div class="teste">
+  <div class="cab"><span class="num">2.1</span><span class="titulo">Criar clínica com a conta já pronta</span><span class="etiqueta critico">crítico</span></div>
+  <ol class="passos">
+    <li>Em <b>Administração</b>, preencha nome, CNPJ, telefone e e-mail.</li>
+    <li>Clique em <b>Gerar senha</b> e depois em <b>Criar clínica e conta</b>.</li>
+    <li>Copie as credenciais da faixa verde. Saia e entre com elas.</li>
+  </ol>
+  <div class="esperado"><b>Esperado:</b><span>A clínica entra direto, sem confirmar e-mail e sem passar por convite, já como administradora.</span></div>
+</div>
+
+<div class="teste">
+  <div class="cab"><span class="num">2.2</span><span class="titulo">CNPJ inválido e CNPJ repetido</span><span class="etiqueta importante">importante</span></div>
+  <ol class="passos">
+    <li>Tente criar uma clínica com CNPJ <b>11.222.333/0001-99</b> (dígito errado).</li>
+    <li>Depois tente criar outra com o CNPJ de uma clínica que já existe.</li>
+  </ol>
+  <div class="esperado"><b>Esperado:</b><span>A primeira é barrada por “CNPJ inválido”; a segunda, por “Já existe uma clínica com esse CNPJ”.</span></div>
+</div>
+
+<div class="teste">
+  <div class="cab"><span class="num">2.3</span><span class="titulo">Trocar a senha da clínica</span><span class="etiqueta critico">crítico</span></div>
+  <ol class="passos">
+    <li>Em Administração, clique em <b>Editar</b> numa clínica.</li>
+    <li>Gere uma senha nova e salve. Saia e entre com a senha nova.</li>
+    <li>Repita a edição mudando só o telefone, com o campo de senha <b>vazio</b>.</li>
+  </ol>
+  <div class="esperado"><b>Esperado:</b><span>A senha nova funciona. E, na segunda edição, a senha continua sendo a mesma — campo vazio não altera nada.</span></div>
+</div>
+
+<div class="teste">
+  <div class="cab"><span class="num">2.4</span><span class="titulo">Trocar o e-mail troca o login de verdade</span><span class="etiqueta importante">importante</span></div>
+  <ol class="passos">
+    <li>Edite uma clínica e troque o e-mail de acesso.</li>
+    <li>Tente entrar com o e-mail <b>antigo</b>, depois com o <b>novo</b>.</li>
+  </ol>
+  <div class="esperado"><b>Esperado:</b><span>O antigo é recusado; o novo entra normalmente, sem precisar reconfirmar e-mail.</span></div>
+</div>
+
+<div class="teste">
+  <div class="cab"><span class="num">2.5</span><span class="titulo">Excluir clínica pede o nome digitado</span><span class="etiqueta critico">crítico</span></div>
+  <ol class="passos">
+    <li>Crie uma clínica descartável e cadastre nela um médico e um paciente.</li>
+    <li>Volte à Administração e clique na lixeira dessa clínica.</li>
+    <li>Confira os números listados. Tente confirmar sem digitar o nome.</li>
+    <li>Digite o nome exato e confirme.</li>
+  </ol>
+  <div class="esperado"><b>Esperado:</b><span>Os números batem com o que você cadastrou. O botão só habilita com o nome correto. Depois de excluir, o login daquela clínica deixa de funcionar.</span></div>
+</div>
+
+
+</div>
+
+
+<div class="page">
+
+<h2>3. Regras da agenda</h2>
+<p class="intro-secao">É aqui que a migração 0006 mais aparece. Cada teste deve
+   mostrar uma mensagem em português, nunca um erro técnico do banco.</p>
+
+<div class="teste">
+  <div class="cab"><span class="num">3.1</span><span class="titulo">Dois pacientes no mesmo horário do mesmo médico</span><span class="etiqueta critico">crítico</span></div>
+  <ol class="passos">
+    <li>Agende o paciente A com o Dr. X, amanhã às 09:00.</li>
+    <li>Agende o paciente B com o <b>mesmo</b> Dr. X, amanhã às 09:00.</li>
+  </ol>
+  <div class="esperado"><b>Esperado:</b><span>“Esse médico já tem consulta marcada nesse dia e horário.” O segundo agendamento não é criado.</span></div>
+</div>
+
+<div class="teste">
+  <div class="cab"><span class="num">3.2</span><span class="titulo">Cancelar libera o horário</span><span class="etiqueta importante">importante</span></div>
+  <ol class="passos">
+    <li>Cancele o agendamento do teste 3.1.</li>
+    <li>Tente agendar outro paciente no mesmo médico, dia e horário.</li>
+  </ol>
+  <div class="esperado"><b>Esperado:</b><span>Agora funciona — consulta cancelada devolve o horário para a agenda.</span></div>
+</div>
+
+<div class="teste">
+  <div class="cab"><span class="num">3.3</span><span class="titulo">O mesmo paciente em dois médicos ao mesmo tempo</span><span class="etiqueta critico">crítico</span></div>
+  <ol class="passos">
+    <li>Agende o paciente A com o Dr. X, amanhã às 10:00.</li>
+    <li>Agende o <b>mesmo</b> paciente A com o Dr. Y, amanhã às 10:00.</li>
+  </ol>
+  <div class="esperado"><b>Esperado:</b><span>“Esse paciente já tem consulta marcada nesse dia e horário.”</span></div>
+</div>
+
+<div class="teste">
+  <div class="cab"><span class="num">3.4</span><span class="titulo">Falta só a partir do dia da consulta</span><span class="etiqueta importante">importante</span></div>
+  <ol class="passos">
+    <li>Abra a agenda num dia <b>futuro</b> e procure o botão “Faltou”.</li>
+    <li>Abra uma consulta de <b>hoje</b> no painel inicial.</li>
+  </ol>
+  <div class="esperado"><b>Esperado:</b><span>O botão não existe no futuro e aparece a partir de hoje. Mesmo forçando, o banco recusa.</span></div>
+</div>
+
+<div class="teste">
+  <div class="cab"><span class="num">3.5</span><span class="titulo">Consulta realizada não volta atrás</span><span class="etiqueta importante">importante</span></div>
+  <ol class="passos">
+    <li>Registre uma consulta a partir de um agendamento (ele vira “Realizada”).</li>
+    <li>Tente marcar esse mesmo agendamento como “Faltou” ou cancelá-lo.</li>
+  </ol>
+  <div class="esperado"><b>Esperado:</b><span>“Consulta já realizada não volta para …”. O status permanece Realizada.</span></div>
+</div>
+
+<div class="teste">
+  <div class="cab"><span class="num">3.6</span><span class="titulo">Um atendimento não é registrado duas vezes</span><span class="etiqueta critico">crítico</span></div>
+  <ol class="passos">
+    <li>Registre a consulta de um agendamento.</li>
+    <li>Tente registrar outra consulta para o <b>mesmo</b> agendamento.</li>
+  </ol>
+  <div class="esperado"><b>Esperado:</b><span>“Este agendamento já tem uma consulta registrada.”</span></div>
+</div>
+
+<h2>4. Cadastros e validações</h2>
+
+<div class="teste">
+  <div class="cab"><span class="num">4.1</span><span class="titulo">Telefone curto e nascimento no futuro</span><span class="etiqueta importante">importante</span></div>
+  <ol class="passos">
+    <li>Cadastre um paciente com telefone <b>1234</b>.</li>
+    <li>Cadastre outro com data de nascimento no ano que vem.</li>
+  </ol>
+  <div class="esperado"><b>Esperado:</b><span>Os dois são recusados, com mensagem legível — não com texto de erro do Postgres.</span></div>
+</div>
+
+<div class="teste">
+  <div class="cab"><span class="num">4.2</span><span class="titulo">Mesmo CPF em clínicas diferentes é permitido</span><span class="etiqueta critico">crítico</span></div>
+  <ol class="passos">
+    <li>Cadastre um paciente com CPF na clínica A.</li>
+    <li>Entre na clínica B e cadastre outro paciente com o <b>mesmo</b> CPF.</li>
+  </ol>
+  <div class="esperado"><b>Esperado:</b><span>Os dois são aceitos. O mesmo paciente pode se consultar em clínicas diferentes.</span></div>
+</div>
+
+<div class="teste">
+  <div class="cab"><span class="num">4.3</span><span class="titulo">Médico sem registro profissional</span><span class="etiqueta normal">básico</span></div>
+  <ol class="passos"><li>Tente cadastrar um médico deixando o campo de registro vazio.</li></ol>
+  <div class="esperado"><b>Esperado:</b><span>Recusado. O campo aceita CRM, CRO, CRP e outros conselhos, mas não aceita vazio.</span></div>
+</div>
+
+<div class="teste">
+  <div class="cab"><span class="num">4.4</span><span class="titulo">Consulta sem evolução</span><span class="etiqueta importante">importante</span></div>
+  <ol class="passos"><li>Registre uma consulta com o campo “Como foi a consulta” só com espaços.</li></ol>
+  <div class="esperado"><b>Esperado:</b><span>Recusado — o núcleo do prontuário não pode ficar em branco.</span></div>
+</div>
+
+
+</div>
+
+
+<div class="page">
+
+<h2>5. Permissões</h2>
+<p class="intro-secao">Faça com duas abas: uma como administrador, outra como recepção.</p>
+
+<div class="teste">
+  <div class="cab"><span class="num">5.1</span><span class="titulo">Recepção não mexe em médicos</span><span class="etiqueta critico">crítico</span></div>
+  <ol class="passos">
+    <li>Convide alguém como <b>Recepção</b> em Equipe e crie essa conta.</li>
+    <li>Entre com ela e abra a tela de Médicos.</li>
+  </ol>
+  <div class="esperado"><b>Esperado:</b><span>Aviso “Somente leitura”, sem botões de novo/editar/excluir. A lista continua visível para poder agendar.</span></div>
+</div>
+
+<div class="teste">
+  <div class="cab"><span class="num">5.2</span><span class="titulo">Recepção não arquiva paciente</span><span class="etiqueta critico">crítico</span></div>
+  <ol class="passos"><li>Ainda como recepção, abra a ficha de um paciente.</li></ol>
+  <div class="esperado"><b>Esperado:</b><span>O botão de arquivar não aparece. Cadastrar e editar paciente continuam liberados.</span></div>
+</div>
+
+<div class="teste">
+  <div class="cab"><span class="num">5.3</span><span class="titulo">A clínica nunca fica sem administrador</span><span class="etiqueta critico">crítico</span></div>
+  <ol class="passos">
+    <li>Em Equipe, sendo o único administrador, tente mudar o seu papel para Recepção.</li>
+  </ol>
+  <div class="esperado"><b>Esperado:</b><span>Não é possível: o seletor do próprio usuário está travado, e o banco recusa se alguém tentar por fora.</span></div>
+</div>
+
+<div class="teste">
+  <div class="cab"><span class="num">5.4</span><span class="titulo">Convidar quem já é da equipe</span><span class="etiqueta normal">básico</span></div>
+  <ol class="passos"><li>Em Equipe, convide o e-mail de alguém que já é conta daquela clínica.</li></ol>
+  <div class="esperado"><b>Esperado:</b><span>“Esse e-mail já é uma conta desta clínica.”</span></div>
+</div>
+
+<h2>6. Prontuário e horário</h2>
+
+<div class="teste">
+  <div class="cab"><span class="num">6.1</span><span class="titulo">Arquivar paciente preserva o prontuário</span><span class="etiqueta critico">crítico</span></div>
+  <ol class="passos">
+    <li>Como administrador, arquive um paciente que tenha consultas registradas.</li>
+    <li>Confira que ele sumiu da lista e da busca.</li>
+    <li>No Supabase, abra a tabela <b>patients</b> e procure o registro.</li>
+  </ol>
+  <div class="esperado"><b>Esperado:</b><span>A linha continua lá, com <b>deleted_at</b> preenchido, e as consultas dele também. Nada foi destruído.</span></div>
+</div>
+
+<div class="teste">
+  <div class="cab"><span class="num">6.2</span><span class="titulo">Quem registrou a consulta</span><span class="etiqueta normal">básico</span></div>
+  <ol class="passos">
+    <li>Registre uma consulta com a conta da recepção.</li>
+    <li>Abra o histórico do paciente.</li>
+  </ol>
+  <div class="esperado"><b>Esperado:</b><span>Abaixo do nome do médico aparece “registrado por …” com o nome da conta que digitou.</span></div>
+</div>
+
+<div class="teste">
+  <div class="cab"><span class="num">6.3</span><span class="titulo">Relógio de Brasília</span><span class="etiqueta importante">importante</span></div>
+  <ol class="passos">
+    <li>Confira o relógio no rodapé do menu, em cada tela do sistema.</li>
+    <li>Mude o fuso do Windows para outro país e recarregue a página.</li>
+  </ol>
+  <div class="esperado"><b>Esperado:</b><span>O relógio continua marcando o horário de Brasília, e as “consultas de hoje” não mudam de dia.</span></div>
+</div>
+
+<div class="teste">
+  <div class="cab"><span class="num">6.4</span><span class="titulo">Trilha de auditoria</span><span class="etiqueta normal">básico</span></div>
+  <ol class="passos">
+    <li>Cadastre, edite e arquive um paciente qualquer.</li>
+    <li>No Supabase, abra a tabela <b>audit_log</b>.</li>
+  </ol>
+  <div class="esperado"><b>Esperado:</b><span>Três linhas (INSERT, UPDATE, UPDATE) com autor, horário e o antes/depois em JSON.</span></div>
+</div>
+
+<h2>7. Falhas e situações-limite</h2>
+
+<div class="teste">
+  <div class="cab"><span class="num">7.1</span><span class="titulo">Internet caindo no meio</span><span class="etiqueta importante">importante</span></div>
+  <ol class="passos">
+    <li>Desligue o Wi-Fi e tente salvar um paciente.</li>
+  </ol>
+  <div class="esperado"><b>Esperado:</b><span>“Sem conexão com o servidor…”. A tela não trava nem fica em branco.</span></div>
+</div>
+
+<div class="teste">
+  <div class="cab"><span class="num">7.2</span><span class="titulo">Duas pessoas editando o mesmo paciente</span><span class="etiqueta importante">importante</span></div>
+  <ol class="passos">
+    <li>Abra a ficha do mesmo paciente em duas abas, com contas diferentes.</li>
+    <li>Salve uma alteração na aba A. Depois salve outra na aba B, sem recarregar.</li>
+  </ol>
+  <div class="esperado"><b>Esperado:</b><span>A aba B avisa que outra pessoa alterou o cadastro e pede para recarregar — em vez de sobrescrever calada.</span></div>
+</div>
+
+<div class="teste">
+  <div class="cab"><span class="num">7.3</span><span class="titulo">Isolamento entre clínicas</span><span class="etiqueta critico">crítico</span></div>
+  <ol class="passos">
+    <li>Anote o id de um paciente da clínica A (pelo endereço da ficha).</li>
+    <li>Entre como clínica B e abra <b>/pacientes/</b>&lt;id da clínica A&gt;.</li>
+  </ol>
+  <div class="esperado"><b>Esperado:</b><span>“Paciente não encontrado.” Uma clínica nunca enxerga dado da outra, mesmo com o endereço na mão.</span></div>
+</div>
+
+<h2>Controle</h2>
+<table>
+  <tr><th>Bloco</th><th>Testes</th><th class="check">OK</th><th>Observações</th></tr>
+  <tr><td>1. Acesso e contas</td><td>1.1 – 1.3</td><td class="check"><span class="quadradinho"></span></td><td></td></tr>
+  <tr><td>2. Administração</td><td>2.1 – 2.5</td><td class="check"><span class="quadradinho"></span></td><td></td></tr>
+  <tr><td>3. Agenda</td><td>3.1 – 3.6</td><td class="check"><span class="quadradinho"></span></td><td></td></tr>
+  <tr><td>4. Cadastros</td><td>4.1 – 4.4</td><td class="check"><span class="quadradinho"></span></td><td></td></tr>
+  <tr><td>5. Permissões</td><td>5.1 – 5.4</td><td class="check"><span class="quadradinho"></span></td><td></td></tr>
+  <tr><td>6. Prontuário e horário</td><td>6.1 – 6.4</td><td class="check"><span class="quadradinho"></span></td><td></td></tr>
+  <tr><td>7. Falhas</td><td>7.1 – 7.3</td><td class="check"><span class="quadradinho"></span></td><td></td></tr>
+</table>
+
+<div class="caixa-atencao" style="margin-top:6mm;">
+  <b>Se algum teste falhar,</b> anote o número, o que apareceu na tela e o que
+  saiu no console do navegador (F12 → Console). Com isso dá para achar a causa
+  direto, sem refazer o caminho todo.
+</div>
+
+<div class="rodape"><span>MedAgenda — roteiro de testes</span><span>Aplicar após a migração 0006</span></div>
+</div>
+
+</body>
+</html>
