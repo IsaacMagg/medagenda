@@ -247,3 +247,4 @@ Twilio/Z-API, chamada a partir de uma Edge Function do Supabase agendada por
   fazer, mas em uma mudança separada.
 - Não rode `next build` com o servidor de dev ligado: os dois usam a mesma pasta
   `.next` e o dev quebra com "Cannot find module".
+# medagenda
